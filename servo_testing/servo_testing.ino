@@ -19,8 +19,8 @@ void loop() {
 //    servo.write(pos);              // tell servo to go to position in variable 'pos'
 //    delay(15);                       // waits 15ms for the servo to reach the position
 //  }
-  delay(3000);
-  servo.writeMicroseconds(1000);
-  delay(3000);
-  servo.writeMicroseconds(2000);
+  servo.writeMicroseconds(3000);
+  delay(2000);
+  servo.writeMicroseconds(600);
+  delay(2000);
 }
