@@ -37,7 +37,8 @@ void drive_servo(uint16_t desired_pos)
       // in steps of 1 degree
       servo.write(pos);              // tell servo to go to position in variable 'pos'
       
-      int16_t servo_delay = map(analogRead(SPEED_POT), 0, 1023, MIN_SPEED, MAX_SPEED);
+      //      int16_t servo_delay = map(analogRead(SPEED_POT), 0, 1023, MIN_SPEED, MAX_SPEED);
+      int16_t servo_delay = 0;
       delay(servo_delay);
     }
   }
@@ -47,8 +48,8 @@ void drive_servo(uint16_t desired_pos)
       // in steps of 1 degree
       servo.write(pos);              // tell servo to go to position in variable 'pos'
       
-      int16_t servo_delay = map(analogRead(SPEED_POT), 0, 1023, MIN_SPEED, MAX_SPEED);
-      
+//      int16_t servo_delay = map(analogRead(SPEED_POT), 0, 1023, MIN_SPEED, MAX_SPEED);
+      int16_t servo_delay = 0;
       delay(servo_delay);
     }
   }
@@ -60,16 +61,27 @@ int16_t mapServoPos(int16_t pos)
 }
 
 void loop() {
-  int16_t pos_adj = map(analogRead(VOL_POT), 0, 1023, -MAX_POS_ADJ, MAX_POS_ADJ);
-  int16_t dest_pos = mapServoPos(SQUEEZE_POS + pos_adj);
-  int32_t breath_start = millis();
-  drive_servo(dest_pos);
-  delay(500); // needs to be adjusted
-  dest_pos = mapServoPos(START_POS);
-  drive_servo(dest_pos);
+//  int16_t pos_adj = map(analogRead(VOL_POT), 0, 1023, -MAX_POS_ADJ, MAX_POS_ADJ);
+////  int16_t dest_pos = mapServoPos(SQUEEZE_POS + pos_adj);
+//  int16_t dest_pos = mapServoPos(SQUEEZE_POS + pos_adj);
+////  int32_t breath_start = millis();
+//  drive_servo(dest_pos);
+//  delay(500); // needs to be adjusted
+//  dest_pos = mapServoPos(START_POS);
+//  drive_servo(dest_pos);
+//  drive_servo(START_POS);
+////  int32_t breath_end = millis();
+////  int16_t time_adj = map(analogRead(RATE_POT), 0, 1023, -MAX_RATE_ADJ, MAX_RATE_ADJ);
+////  int16_t post_breath_delay = max(0, BREATH_RATE + time_adj - (breath_end - breath_start));
+//  int16_t post_breath_delay = 3000;
+//  delay(post_breath_delay);
   drive_servo(START_POS);
-  int32_t breath_end = millis();
-  int16_t time_adj = map(analogRead(RATE_POT), 0, 1023, -MAX_RATE_ADJ, MAX_RATE_ADJ);
-  int16_t post_breath_delay = max(0, BREATH_RATE + time_adj - (breath_end - breath_start));
+  delay(1500);
+  int16_t pos_adj = map(analogRead(VOL_POT), 0, 1023, -MAX_POS_ADJ, MAX_POS_ADJ);
+//  int16_t dest_pos = mapServoPos(SQUEEZE_POS + pos_adj);
+  int16_t dest_pos = mapServoPos(SQUEEZE_POS);
+//  int32_t breath_start = millis();
+  drive_servo(dest_pos);
+  int16_t post_breath_delay = 3000;
   delay(post_breath_delay);
 }
