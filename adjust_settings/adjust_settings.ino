@@ -46,7 +46,7 @@ Servo servo;
 void setup() {
   // put your setup code here, to run once:
 //  Serial.begin(9600);
-  servo.attach(7);
+  servo.attach(10);
   Serial.begin(9600);
   pinMode(VOL_POT, INPUT);
   pinMode(RATE_POT, INPUT);

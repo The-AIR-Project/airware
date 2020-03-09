@@ -11,6 +11,9 @@ char clearLine[] = "                    ";
 bool canReadButton = true;
 long buttonTime = 0;
 
+uint8_t g_led = 8;
+uint8_t r_led = 6;
+
 void printAgeSetting()
 {
   lcd.setCursor(0,0);
@@ -54,7 +57,11 @@ void printRateSetting()
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  pinMode(8, INPUT_PULLUP);
+  pinMode(4, INPUT_PULLUP);
+  pinMode(5, INPUT_PULLUP);
+  pinMode(g_led, OUTPUT);
+  pinMode(r_led, OUTPUT);
+  digitalWrite(g_led, HIGH);
   lcd.init();
   lcd.backlight();
   printAgeSetting();
@@ -62,30 +69,49 @@ void setup() {
 }
 
 void loop() {
+//  Serial.print(analogRead(A1));
+//  Serial.print(" ");
+//  Serial.print(analogRead(A2));
+//  Serial.print(" ");
+//  Serial.println(analogRead(A3));
+  
   // put your main code here, to run repeatedly:
-  if (digitalRead(8) == 0 && canReadButton) {
+  if (digitalRead(4) == 0 && canReadButton) {
     buttonTime = millis();
     canReadButton = false;
     buttonState += 1;
     buttonState = buttonState % 3;
     printAgeSetting();
+    digitalWrite(g_led, LOW);
+    digitalWrite(r_led, HIGH);
+  }
+  if (digitalRead(5) == 0 && canReadButton) {
+    buttonTime = millis();
+    canReadButton = false;
+    buttonState += 1;
+    buttonState = buttonState % 3;
+    printAgeSetting();
+    digitalWrite(g_led, LOW);
+    digitalWrite(r_led, HIGH);
   }
   if (!canReadButton && millis() - buttonTime >= 500) {
     canReadButton = true;
+    digitalWrite(g_led, HIGH);
+    digitalWrite(r_led, LOW);
   }
 
-  if (map(analogRead(0), 1024, 0, 0, 10) != potValueVol) {
-    potValueVol = map(analogRead(0), 1024, 0, 0, 10);
+  if (map(analogRead(1), 1024, 0, 0, 10) != potValueVol) {
+    potValueVol = map(analogRead(1), 1024, 0, 0, 10);
     printVolSetting();
   }
 
-  if (map(analogRead(0), 1024, 0, 0, 20) != potValuePress) {
-    potValuePress = map(analogRead(0), 1024, 0, 0, 20);
+  if (map(analogRead(2), 1024, 0, 0, 20) != potValuePress) {
+    potValuePress = map(analogRead(2), 1024, 0, 0, 20);
     printPressSetting();
   }
 
-  if (map(analogRead(0), 1024, 0, 0, 30) != potValueRate) {
-    potValueRate = map(analogRead(0), 1024, 0, 0, 30);
+  if (map(analogRead(3), 1024, 0, 0, 30) != potValueRate) {
+    potValueRate = map(analogRead(3), 1024, 0, 0, 30);
     printRateSetting();
   }
 }
