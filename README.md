@@ -1,9 +1,21 @@
 # AIRware
-Software for the AIR project
+Files for the AIR project.
 
 #### External Libraries
 
 LiquidCrystal_I2C (https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library/blob/master/LiquidCrystal_I2C.h)
+
+
+#### How To Use
+
+If the software is loaded as is onto the Arduino, and the:
+- One button (black, on our design) cycles through age group settings
+    - These can only be toggled while ventilation is not in progress
+- Potentiometers adjust volume, pressure, and rate settings
+    - These can be adjusted at any time
+    - Volume measurements are calibrated as explained below
+- If the airway is blocked, the servo will draw too much current and a blockage
+is predicted (see how to calibrate this below)  
 
 #### Volume Output Characterization
 
